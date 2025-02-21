@@ -1,0 +1,11 @@
+.header {
+    margin: auto;
+    text-align: center;
+    color: bisque;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    background-color: blue;
+}
+
+.container{
+    text-align: center;
+}
