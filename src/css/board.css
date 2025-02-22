@@ -1,0 +1,25 @@
+.boardPlate {
+    width: 40rem;
+    height: 50rem;
+    background-color: white;
+    opacity: 0.6;
+    border: 3px solid black;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    background-color: yellow;
+    color: rebeccapurple;
+    border-radius: 5px;
+    /* display: inline-block; */
+    /* width: 200px; */
+    margin-top: 0;
+}
+
+.draggable{
+    display: block;
+    margin: 3rem;
+}
