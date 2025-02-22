@@ -1,0 +1,12 @@
+.addPng {
+    width: 20px;
+    height: 20px;
+}
+
+.addPng:hover {
+    cursor: pointer;
+}
+
+.inputContainer {
+    margin-bottom: 2px;
+}

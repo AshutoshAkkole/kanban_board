@@ -1,15 +1,14 @@
 import * as boardCss from "../css/board.css";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
-
-type tasks = { task: string }[];
+import InputTask from "./inputTask";
 
 type Props = {
-  tasks?: tasks,
+  tasks?: Tasks,
   header?: string,
   id: number,
 };
 
-const task_default: tasks = [
+const task_default: Tasks = [
   { task: "do code" },
   { task: "do proper dev code" },
 ];
@@ -44,6 +43,7 @@ const Board: React.FC<Props> = ({
                 )}
               </Draggable>
             ))}
+            <InputTask index={id} />
           </div>
         )}
       </Droppable>

@@ -2,6 +2,7 @@ import Board from "./board";
 import * as ContainerCss from "../css/boardContainer.css";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { useState } from "react";
+import boardContext from "../hooks/boardContext";
 import * as R from "ramda";
 
 type board = { title: string };
@@ -16,29 +17,27 @@ const boards_default: board[] = [
   { title: "completed" },
 ];
 
-type tasks = { task: string }[];
-
-const task_default: tasks = [
+const task_default: Tasks = [
   { task: "do code" },
   { task: "do proper dev code" },
 ];
 
 const addElement = (
-  element: { task: string },
+  element: Task,
   index: number,
-  tasks: tasks
-): tasks => R.insert(index, element, tasks);
+  tasks: Tasks
+): Tasks => R.insert(index, element, tasks);
 
-const removeElements = (index: number, tasks: tasks): tasks =>
+const removeElements = (index: number, tasks: Tasks): Tasks =>
   R.remove(index, 1, tasks);
 
-type droppable = { tasks: tasks; index: number; id: string };
+type droppable = { tasks: Tasks; index: number; id: string };
 
 const dragDropUpdation = (
   destination: droppable,
   source: droppable,
-  setMethod1: React.Dispatch<React.SetStateAction<tasks>>,
-  setMethod2: React.Dispatch<React.SetStateAction<tasks>>
+  setMethod1: SetState<Tasks>,
+  setMethod2: SetState<Tasks>
 ): void => {
   const { index: source_index, tasks: source_tasks, id:id1 } = source;
   const { index: destination_index, tasks: destination_tasks, id:id2 } = destination;
@@ -62,9 +61,9 @@ const dragDropUpdation = (
 };
 
 const BoardContainer: React.FC<Props> = ({ boards = boards_default }) => {
-  const [notYet, setNotYet] = useState(task_default);
-  const [inProgress, setInprogress] = useState(task_default);
-  const [completed, setCompleted] = useState(task_default);
+  const [notYet, setNotYet] = useState<Tasks>([]);
+  const [inProgress, setInprogress] = useState<Tasks>([]);
+  const [completed, setCompleted] = useState<Tasks>([]);
 
   const tasks = [notYet, inProgress, completed];
   const setTasks = [setNotYet, setInprogress, setCompleted];
@@ -95,6 +94,7 @@ const BoardContainer: React.FC<Props> = ({ boards = boards_default }) => {
   const { container } = ContainerCss;
 
   return (
+    <boardContext.Provider value={{tasks,setTasks}}>
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className={container}>
         {boards.map((item, index) => (
@@ -102,6 +102,7 @@ const BoardContainer: React.FC<Props> = ({ boards = boards_default }) => {
         ))}
       </div>
     </DragDropContext>
+    </boardContext.Provider>
   );
 };
 
