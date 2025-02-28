@@ -15,7 +15,7 @@ const InputTask: React.FC<Props> = ({index = 0}) => {
 
   const { tasks:T, setTasks } = useContext(boardContext);
 
-  const task = useMemo(()=>T[index],[index])
+  const task = useMemo(()=>T[index],[T]);
   
   const setTask = useCallback((val: Tasks)=>setTasks[index](val),[index]);
 
